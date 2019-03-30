@@ -552,6 +552,16 @@ impl<T, P> ExactSizeIterator for IntoIter<T, P> {
     }
 }
 
+#[cfg(any(feature = "full", feature = "derive"))]
+impl private {
+    pub fn empty_punctuated_into_iter<T, P>() -> IntoIter<T, P> {
+        IntoIter {
+            inner: Vec::new().into_iter(),
+            last: None.into_iter(),
+        }
+    }
+}
+
 /// An iterator over borrowed values of type `&T`.
 ///
 /// Refer to the [module documentation] for details about punctuated sequences.
